@@ -1,10 +1,5 @@
 pipeline{
     
-    agent any
-    environment {
-        VERSION = "${env.BUILD_ID}"
-    }
-    
     stages {
         
         stage('Git Checkout'){
@@ -71,7 +66,7 @@ pipeline{
             steps{
                 script{
                     withCredentials([string(credentialsId: 'nexus-cred', variable: 'nexus-cred')])
-                        sh 'docker build -t 18.214.99.97:8083/springapp:${VERSION}'
+                        sh 'docker build -t 18.214.99.97:8083/springapp:${VERSION} .'
                         sh 'docker login -u admin -p $nexus-cred 18.214.99.97:8083'
                         sh 'docker push 18.214.99.97:8083/springapp:${VERSION}'
                         sh 'docker rmi 18.214.99.97:8083/springapp:${VERSION}'
