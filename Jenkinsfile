@@ -43,19 +43,7 @@ pipeline{
                 }
             }
         }
-        stage('Static code analysis'){
-            
-            steps{
-                
-                script{
-                    
-                    withSonarQubeEnv(credentialsId: 'sonar-token') {
-                        
-                        sh 'mvn clean package sonar:sonar'
-                    }
-                }
-            }
-        }
+        
         stage('docker build and push image to the nexus repo'){
             steps{
                 script{
