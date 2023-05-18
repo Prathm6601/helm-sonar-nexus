@@ -63,17 +63,19 @@ pipeline{
                 }
             }
         }
-        stage('docker build & push to nexus repo'){
+        stage('docker build and push image to the nexus repo'){
             steps{
                 script{
-                    withCredentials([string(credentialsId: 'nexus-cred', variable: 'nexus-cred')])
-                        sh 'docker build -t 18.214.99.97:8083/$JOB_NAME:v1.$BUILD_ID .'
-                        sh 'docker login -u admin -p $nexus-cred 18.214.99.97:8083'
-                        sh 'docker push 18.214.99.97:8083/$JOB_NAME:v1.$BUILD_ID'
-                        sh 'docker rmi 18.214.99.97:8083/$JOB_NAME:v1.$BUILD_ID'
+                    withCredentials([string(credentialsId: 'nexus-cred', variable: 'nexus-cred')]){
+                        sh 'docker image build -t 35.175.142.195:8083/$JOB_NAME:v1.$BUILD_ID .'
+                        sh 'docker login -u admin -p prathm 35.175.142.195:8083'
+                        sh 'docker image push 35.175.142.195:8083/$JOB_NAME:v1.$BUILD_ID'
+                        
                     }
                 }
             }
         }
+        
+    }
         
 }
