@@ -56,13 +56,6 @@ pipeline{
                 }
             }
         }
-        stage('Quality Gate Status'){
-            steps{
-                script{
-                    waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token'
-                }
-            }
-        }
         stage('docker build and push image to the nexus repo'){
             steps{
                 script{
