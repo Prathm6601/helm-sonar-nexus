@@ -49,7 +49,7 @@ pipeline{
                 script{
                     withCredentials([string(credentialsId: 'nexus-cred', variable: 'nexus-cred')]){
                         sh 'docker image build -t 35.175.142.195:8083/$JOB_NAME:v1.$BUILD_ID .'
-                        sh 'docker login -u admin -p prathm 35.175.142.195:8083'
+                        sh 'docker login -u admin -p prathm docker-hosted'
                         sh 'docker image push 35.175.142.195:8083/$JOB_NAME:v1.$BUILD_ID'
                         
                     }
